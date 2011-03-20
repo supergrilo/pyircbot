@@ -6,10 +6,11 @@ import irclib
 
 
 def handleJoin( connection, event ):
+    IRC_Bot.__init__()
     nick = event.source().split('!')[0]
     but3k4_msg = "Papai mandou lembrancas"
     if nick.find('fabio') != -1 or nick.find('miguim') != -1:
-        ''.privmsg( conf['channel'], but3k4_msg )
+        connection.privmsg( conf['channel'], 'nick but3k4_msg' )
 
 class IRC_Bot:
     def __init__(self):
