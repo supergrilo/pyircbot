@@ -1,23 +1,28 @@
 #!/usr/bin/python
 
+import ConfigParser
 import irclib
 
-network="irc.oftc.net"
-port=6667
-nick="dinobot"
-ident="pybot"
-realname="Bot do Fabio"
-channel="#sysadms"
+config = ConfigParser.RawConfigParser()
+config.read('conf/irc_bot.conf')
 
-irclib.DEBUG = True
+conf = {
+        'network': None,
+        'port': None,
+        'nick': None,
+        'username': None,
+        'ircname': None,
+        'debug': None
+}
 
-irc = irclib.IRC()
+for key in conf.keys():
+    conf[key] = config.get('irc_bot', key)
 
-server = irc.server()
-server.connect( network, port, nick, ircname = realname )
-server.join( channel )
-
-server.privmsg( channel, 'Querida CHEGUEI!' )
-
-
+try:
+    irc = irclib.IRC()
+    server = irc.server()
+    server.connect( conf['network'], int(conf['port']), conf['nick'], username = conf['username'], ircname = conf['ircname'] )
+except Exception, ex:
+    print "Xi cagou: %s" % ex
+        
 irc.process_forever()
