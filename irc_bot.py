@@ -58,6 +58,7 @@ class IRC_Bot:
             server.join(self.conf['channel'])
             irc.add_global_handler('join', self.handleJoin)
             irc.add_global_handler('part', self.handlePart)
+            irc.add_global_handler('quit', self.handleQuit)
         except Exception, ex:
             print "Xi cagou: %s" % ex
             sys.exit(1)
