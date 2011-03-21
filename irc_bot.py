@@ -23,6 +23,10 @@ class IRC_Bot:
         #    connection.privmsg(self.conf['channel'], '%s: %s' % (nick, but3k4_msg))
         #if nick.find('rsampaio') != -1:
         #    connection.privmsg(self.conf['channel'], '%s: %s' % (nick, rsampaio_msg))
+    def handleLeave(self, connection, event):
+        nick = event.source().split('!')[0]
+        leavelog = seen.action()
+        leavelog.save( "%s %s" % ("Part: ", event.source()))
 
     def run(self):
         self.conf = {
@@ -48,6 +52,7 @@ class IRC_Bot:
             server.connect(self.conf['network'], int(self.conf['port']), self.conf['nick'], username = self.conf['username'], ircname = self.conf['ircname'] )
             server.join(self.conf['channel'])
             irc.add_global_handler('join', self.handleJoin)
+            irc.add_global_handler('leave', self.handleLeave)
         except Exception, ex:
             print "Xi cagou: %s" % ex
             sys.exit(1)

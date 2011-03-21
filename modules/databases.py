@@ -10,14 +10,14 @@ config.read('conf/irc_bot.conf')
 
 Base = declarative_base()
 
-class JoinLog(Base):
+class SeenLog(Base):
     __tablename__ = 'seen'
     id = Column(Integer, primary_key=True)
     date = Column(DateTime)
-    join = Column(Unicode)
+    seen = Column(Unicode)
     
     def __repr__(self):
-        return "JoinLog(%r)" % self.date
+        return "SeenLog(%r)" % self.date
     
 engine = create_engine('sqlite:///%s' % config.get('database', 'irc_bot'), echo=False)
 Base.metadata.create_all(engine)
