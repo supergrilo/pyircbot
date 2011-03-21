@@ -14,7 +14,7 @@ class SeenLog(Base):
     __tablename__ = 'seen'
     id = Column(Integer, primary_key=True)
     date = Column(DateTime)
-    seen = Column(Unicode)
+    message = Column(Unicode)
     
     def __repr__(self):
         return "SeenLog(%r)" % self.date

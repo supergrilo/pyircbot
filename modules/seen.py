@@ -14,9 +14,9 @@ class action():
             return False
         
     def seen(self, nick):
-        query = database.session.query( database.SeenLog.message, databases.SeenLog.date )
+        query = database.session.query( database.SeenLog.seen, databases.SeenLog.date )
         try:
-            return query.filter( databases.SeenLog.message.like( "%s!%%@%%" % unicode( nick )).order_by(database.SeenLog.desc() )).first()
+            return query.filter( databases.SeenLog.seen.like( "%s!%%@%%" % unicode( nick )).order_by(database.SeenLog.desc() )).first()
         except Exception:
             return None
     
